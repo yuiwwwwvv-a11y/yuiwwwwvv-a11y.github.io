@@ -49,6 +49,33 @@
             z-index: 1;
         }
 
+        /* 右侧大标题 */
+        .desktop-title {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .desktop-title .title-en {
+            font-size: 72px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 4px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .desktop-title .title-cn {
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 12px;
+            margin-top: 10px;
+        }
+
         /* 桌面图标 */
         .desktop-icon {
             width: 90px;
@@ -758,6 +785,11 @@
 <body>
     <!-- 桌面 -->
     <div class="desktop" id="desktop">
+        <!-- 右侧大标题 -->
+        <div class="desktop-title">
+            <div class="title-en">Space Master</div>
+            <div class="title-cn">空间大师</div>
+        </div>
         <!-- 下载最新版本 -->
         <div class="desktop-icon" data-window="download">
             <div class="icon-img icon-download">
@@ -1342,12 +1374,7 @@
     <div class="taskbar">
         <!-- 开始按钮 -->
         <div class="start-btn" onclick="toggleStartMenu()">
-            <svg viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="2" width="9" height="9" fill="#4cc9f0"/>
-                <rect x="13" y="2" width="9" height="9" fill="#f72585"/>
-                <rect x="2" y="13" width="9" height="9" fill="#7209b7"/>
-                <rect x="13" y="13" width="9" height="9" fill="#4361ee"/>
-            </svg>
+            <span style="font-size: 24px; color: #4cc9f0; font-weight: bold;">Ʊ</span>
         </div>
 
         <!-- 搜索框 -->
