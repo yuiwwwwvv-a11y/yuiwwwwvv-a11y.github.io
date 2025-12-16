@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: relative;
+        }
+
+        /* 动态背景效果 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 115, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(76, 201, 240, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* 桌面区域 */
+        .desktop {
+            height: calc(100vh - 56px);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 桌面图标 */
+        .desktop-icon {
+            width: 90px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .desktop-icon:active {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(0.95);
+        }
+
+        .desktop-icon.selected {
+            background: rgba(76, 201, 240, 0.2);
+            border: 1px solid rgba(76, 201, 240, 0.4);
+        }
+
+        .icon-img {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 24px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .desktop-icon:hover .icon-img {
+            transform: scale(1.1);
+        }
+
+        /* 图标样式 */
+        .icon-download { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .icon-history { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .icon-privacy { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .icon-terms { background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%); }
+        .icon-agreement { background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%); }
+        .icon-version { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); }
+        .icon-demo { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); }
+        .icon-promo { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+        .icon-support { background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%); }
+        .icon-product { background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%); }
+
+        .icon-text {
+            font-size: 12px;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.3;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            word-break: break-all;
+        }
+
+        /* 任务栏 */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: rgba(30, 30, 46, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            z-index: 100;
+        }
+
+        /* 开始按钮 */
+        .start-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        .start-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .start-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* 搜索框 */
+        .search-box {
+            margin-left: 12px;
+            width: 280px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            gap: 10px;
+            cursor: text;
+            transition: all 0.2s ease;
+        }
+
+        .search-box:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .search-box svg {
+            width: 16px;
+            height: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-box span {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+        }
+
+        /* 任务栏图标区 */
+        .taskbar-icons {
+            display: flex;
+            align-items: center;
+            margin-left: 16px;
+            gap: 4px;
+        }
+
+        .taskbar-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .taskbar-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .taskbar-icon.active::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: #4cc9f0;
+            border-radius: 2px;
+        }
+
+        .taskbar-icon svg, .taskbar-icon .icon-small {
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-small {
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* 系统托盘 */
+        .system-tray {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tray-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tray-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tray-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* 时间显示 */
+        .datetime {
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .datetime:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .time {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .date {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 窗口样式 */
+        .window {
+            position: absolute;
+            width: 600px;
+            min-height: 400px;
+            background: rgba(30, 30, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 50;
+            animation: windowOpen 0.25s ease;
+        }
+
+        @keyframes windowOpen {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .window.active {
+            display: flex;
+        }
+
+        .window-header {
+            height: 40px;
+            background: rgba(40, 40, 60, 0.8);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            cursor: move;
+            flex-shrink: 0;
+        }
+
+        .window-title {
+            font-size: 13px;
+            color: #ffffff;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .window-title .title-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .window-btn {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .window-btn svg {
+            width: 8px;
+            height: 8px;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .window-controls:hover .window-btn svg {
+            opacity: 1;
+        }
+
+        .btn-close { background: #ff5f57; }
+        .btn-minimize { background: #ffbd2e; }
+        .btn-maximize { background: #28c940; }
+
+        .btn-close:hover { background: #ff3b30; }
+        .btn-minimize:hover { background: #f5a623; }
+        .btn-maximize:hover { background: #1db954; }
+
+        .window-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .window-content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .window-content p {
+            margin-bottom: 14px;
+        }
+
+        /* 下载窗口特殊样式 */
+        .download-card {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.15) 0%, rgba(0, 242, 254, 0.15) 100%);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .download-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #4facfe;
+        }
+
+        .download-card .version {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 16px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        /* 版本列表 */
+        .version-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .version-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .version-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .version-info h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .version-info span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .version-download {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .version-download:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 视频容器 */
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .play-btn {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        .play-btn svg {
+            width: 32px;
+            height: 32px;
+            margin-left: 4px;
+        }
+
+        /* 在线客服 */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 320px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .chat-message.bot {
+            background: rgba(76, 201, 240, 0.2);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-message.user {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input:focus {
+            border-color: rgba(76, 201, 240, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-send {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+
+        /* 遮罩层 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 56px;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 40;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* 开始菜单 */
+        .start-menu {
+            position: fixed;
+            bottom: 66px;
+            left: 12px;
+            width: 320px;
+            background: rgba(30, 30, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 200;
+            overflow: hidden;
+            animation: menuSlide 0.2s ease;
+        }
+
+        @keyframes menuSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .start-menu.active {
+            display: block;
+        }
+
+        .menu-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-header h3 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .menu-header p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 16px;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-item .icon-small {
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+        }
+
+        .menu-item span {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
+
+        .menu-footer {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .menu-footer-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-footer-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .menu-footer-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- 桌面 -->
+    <div class="desktop" id="desktop">
+        <!-- 下载最新版本 -->
+        <div class="desktop-icon" data-window="download">
+            <div class="icon-img icon-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+            </div>
+            <span class="icon-text">下载最新版本</span>
+        </div>
+
+        <!-- 历史版本 -->
+        <div class="desktop-icon" data-window="history">
+            <div class="icon-img icon-history">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+            </div>
+            <span class="icon-text">历史版本</span>
+        </div>
+
+        <!-- 隐私声明 -->
+        <div class="desktop-icon" data-window="privacy">
+            <div class="icon-img icon-privacy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+            </div>
+            <span class="icon-text">隐私声明</span>
+        </div>
+
+        <!-- 服务条款 -->
+        <div class="desktop-icon" data-window="terms">
+            <div class="icon-img icon-terms">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+            </div>
+            <span class="icon-text">服务条款</span>
+        </div>
+
+        <!-- 用户协议 -->
+        <div class="desktop-icon" data-window="agreement">
+            <div class="icon-img icon-agreement">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
+            <span class="icon-text">用户协议</span>
+        </div>
+
+        <!-- 版本声明 -->
+        <div class="desktop-icon" data-window="version">
+            <div class="icon-img icon-version">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+            </div>
+            <span class="icon-text">版本声明</span>
+        </div>
+
+        <!-- 视频演示 -->
+        <div class="desktop-icon" data-window="demo">
+            <div class="icon-img icon-demo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                    <line x1="7" y1="2" x2="7" y2="22"/>
+                    <line x1="17" y1="2" x2="17" y2="22"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <line x1="2" y1="7" x2="7" y2="7"/>
+                    <line x1="2" y1="17" x2="7" y2="17"/>
+                    <line x1="17" y1="17" x2="22" y2="17"/>
+                    <line x1="17" y1="7" x2="22" y2="7"/>
+                </svg>
+            </div>
+            <span class="icon-text">视频演示</span>
+        </div>
+
+        <!-- 宣传视频 -->
+        <div class="desktop-icon" data-window="promo">
+            <div class="icon-img icon-promo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+            </div>
+            <span class="icon-text">宣传视频</span>
+        </div>
+
+        <!-- 在线客服 -->
+        <div class="desktop-icon" data-window="support">
+            <div class="icon-img icon-support">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+            </div>
+            <span class="icon-text">在线客服</span>
+        </div>
+
+        <!-- 此产品 -->
+        <div class="desktop-icon" data-window="product">
+            <div class="icon-img icon-product">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <span class="icon-text">此产品</span>
+        </div>
+    </div>
+
+    <!-- 遮罩层 -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- 窗口 - 下载最新版本 -->
+    <div class="window" id="window-download" style="top: 80px; left: 200px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-download">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                </div>
+                下载最新版本
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('download')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>下载最新版本</h2>
+            <div class="download-card">
+                <h3>v3.2.1 正式版</h3>
+                <div class="version">发布日期: 2024年12月15日 | 大小: 128MB</div>
+                <p>此版本包含重要的性能优化和新功能，建议所有用户更新。</p>
+                <button class="download-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    立即下载
+                </button>
+            </div>
+            <h3 style="margin-bottom: 12px; font-size: 16px;">系统要求</h3>
+            <p>Windows 10/11 (64位) 或 macOS 12.0+</p>
+            <p>至少 4GB 内存，500MB 可用磁盘空间</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 历史版本 -->
+    <div class="window" id="window-history" style="top: 100px; left: 250px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-history">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                历史版本
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('history')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>历史版本</h2>
+            <div class="version-list">
+                <div class="version-item">
+                    <div class="version-info">
+                        <h4>v3.1.0</h4>
+                        <span>2024-11-20 | 125MB</span>
+                    </div>
+                    <button class="version-download">下载</button>
+                </div>
+                <div class="version-item">
+                    <div class="version-info">
+                        <h4>v3.0.2</h4>
+                        <span>2024-10-15 | 122MB</span>
+                    </div>
+                    <button class="version-download">下载</button>
+                </div>
+                <div class="version-item">
+                    <div class="version-info">
+                        <h4>v3.0.0</h4>
+                        <span>2024-09-01 | 120MB</span>
+                    </div>
+                    <button class="version-download">下载</button>
+                </div>
+                <div class="version-item">
+                    <div class="version-info">
+                        <h4>v2.9.5</h4>
+                        <span>2024-07-20 | 118MB</span>
+                    </div>
+                    <button class="version-download">下载</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 窗口 - 隐私声明 -->
+    <div class="window" id="window-privacy" style="top: 60px; left: 300px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-privacy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                隐私声明
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('privacy')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>隐私声明</h2>
+            <p>我们非常重视您的隐私保护。本隐私声明说明了我们如何收集、使用和保护您的个人信息。</p>
+            <p><strong>信息收集</strong>：我们收集您提供的信息，包括注册信息、使用数据和设备信息。</p>
+            <p><strong>信息使用</strong>：我们使用收集的信息来提供和改进服务、个性化用户体验、以及与您沟通。</p>
+            <p><strong>信息保护</strong>：我们采用行业标准的安全措施来保护您的数据免受未授权访问。</p>
+            <p><strong>信息共享</strong>：除非法律要求或获得您的同意，我们不会与第三方共享您的个人信息。</p>
+            <p>如有任何疑问，请通过在线客服联系我们。</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 服务条款 -->
+    <div class="window" id="window-terms" style="top: 90px; left: 280px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-terms">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                </div>
+                服务条款
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('terms')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>服务条款</h2>
+            <p>欢迎使用我们的服务。使用本服务即表示您同意以下条款：</p>
+            <p><strong>1. 服务使用</strong>：您同意仅将服务用于合法目的，并遵守所有适用的法律法规。</p>
+            <p><strong>2. 账户责任</strong>：您负责维护账户的保密性，并对账户下的所有活动负责。</p>
+            <p><strong>3. 知识产权</strong>：服务中的所有内容均受知识产权法保护，未经授权不得复制或分发。</p>
+            <p><strong>4. 服务变更</strong>：我们保留随时修改或终止服务的权利，恕不另行通知。</p>
+            <p><strong>5. 免责声明</strong>：服务按"现状"提供，我们不对服务的适用性作任何保证。</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 用户协议 -->
+    <div class="window" id="window-agreement" style="top: 70px; left: 320px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-agreement">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                    </svg>
+                </div>
+                用户协议
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('agreement')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>用户协议</h2>
+            <p>本用户协议（以下简称"协议"）是您与我们之间关于使用服务的法律协议。</p>
+            <p><strong>接受条款</strong>：注册账户或使用服务即表示您接受本协议的所有条款。</p>
+            <p><strong>用户行为</strong>：您同意不进行任何可能损害服务或其他用户的行为。</p>
+            <p><strong>内容所有权</strong>：您上传的内容归您所有，但您授予我们使用该内容的许可。</p>
+            <p><strong>终止</strong>：如您违反本协议，我们有权终止您的账户。</p>
+            <p><strong>争议解决</strong>：任何争议应通过友好协商解决，协商不成的，提交有管辖权的法院裁决。</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 版本声明 -->
+    <div class="window" id="window-version" style="top: 110px; left: 260px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-version">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                </div>
+                版本声明
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('version')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>版本声明</h2>
+            <p><strong>当前版本</strong>：v3.2.1</p>
+            <p><strong>发布日期</strong>：2024年12月15日</p>
+            <p><strong>版本更新内容</strong>：</p>
+            <p>• 优化了应用启动速度，提升30%</p>
+            <p>• 修复了若干已知问题</p>
+            <p>• 新增深色模式支持</p>
+            <p>• 改进了用户界面交互体验</p>
+            <p>• 增强了数据安全性</p>
+            <p style="margin-top: 20px;"><strong>开发团队</strong>：感谢所有贡献者的辛勤工作！</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 视频演示 -->
+    <div class="window" id="window-demo" style="top: 50px; left: 220px; width: 700px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-demo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                    </svg>
+                </div>
+                视频演示
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('demo')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>功能演示</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="white">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </div>
+                    <span>点击播放功能演示视频</span>
+                </div>
+            </div>
+            <p>本视频将为您展示软件的核心功能和使用方法，帮助您快速上手。</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 宣传视频 -->
+    <div class="window" id="window-promo" style="top: 80px; left: 240px; width: 700px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-promo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                </div>
+                宣传视频
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('promo')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>产品宣传</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24" fill="white">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </div>
+                    <span>点击播放宣传视频</span>
+                </div>
+            </div>
+            <p>了解我们产品的愿景、特色和价值，发现改变工作方式的全新可能。</p>
+        </div>
+    </div>
+
+    <!-- 窗口 - 在线客服 -->
+    <div class="window" id="window-support" style="top: 100px; left: 350px; width: 450px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-support">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                在线客服
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('support')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0;">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message bot">您好！欢迎使用在线客服，请问有什么可以帮助您的？</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="输入您的问题..." onkeypress="handleChatKey(event)">
+                    <button class="chat-send" onclick="sendMessage()">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 窗口 - 此产品 -->
+    <div class="window" id="window-product" style="top: 80px; left: 280px;">
+        <div class="window-header">
+            <div class="window-title">
+                <div class="title-icon icon-product">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="12" height="12">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                </div>
+                此产品
+            </div>
+            <div class="window-controls">
+                <div class="window-btn btn-minimize"></div>
+                <div class="window-btn btn-maximize"></div>
+                <div class="window-btn btn-close" onclick="closeWindow('product')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a0000" stroke-width="3">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>关于此产品</h2>
+            <p>欢迎使用我们的产品！这是一款专为提升您工作效率而设计的专业工具。</p>
+            <p><strong>产品特点：</strong></p>
+            <p>• 简洁直观的用户界面</p>
+            <p>• 强大的功能集成</p>
+            <p>• 安全可靠的数据保护</p>
+            <p>• 持续更新与优化</p>
+            <p style="margin-top: 20px;"><strong>联系我们：</strong></p>
+            <p>如有任何问题或建议，欢迎通过在线客服联系我们。</p>
+        </div>
+    </div>
+
+    <!-- 开始菜单 -->
+    <div class="start-menu" id="startMenu">
+        <div class="menu-header">
+            <h3>欢迎使用</h3>
+            <p>选择一个应用开始</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="openWindow('download'); toggleStartMenu();">
+                <div class="icon-small icon-download">📥</div>
+                <span>下载</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('history'); toggleStartMenu();">
+                <div class="icon-small icon-history">🕐</div>
+                <span>历史</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('privacy'); toggleStartMenu();">
+                <div class="icon-small icon-privacy">🛡️</div>
+                <span>隐私</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('terms'); toggleStartMenu();">
+                <div class="icon-small icon-terms">📄</div>
+                <span>条款</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('agreement'); toggleStartMenu();">
+                <div class="icon-small icon-agreement">👥</div>
+                <span>协议</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('version'); toggleStartMenu();">
+                <div class="icon-small icon-version">ℹ️</div>
+                <span>版本</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('demo'); toggleStartMenu();">
+                <div class="icon-small icon-demo">🎬</div>
+                <span>演示</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('promo'); toggleStartMenu();">
+                <div class="icon-small icon-promo">▶️</div>
+                <span>宣传</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('support'); toggleStartMenu();">
+                <div class="icon-small icon-support">💬</div>
+                <span>客服</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('product'); toggleStartMenu();">
+                <div class="icon-small icon-product">💻</div>
+                <span>此产品</span>
+            </div>
+        </div>
+        <div class="menu-footer">
+            <div class="menu-footer-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+                设置
+            </div>
+            <div class="menu-footer-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+                    <line x1="12" y1="2" x2="12" y2="12"/>
+                </svg>
+                电源
+            </div>
+        </div>
+    </div>
+
+    <!-- 任务栏 -->
+    <div class="taskbar">
+        <!-- 开始按钮 -->
+        <div class="start-btn" onclick="toggleStartMenu()">
+            <svg viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="9" height="9" fill="#4cc9f0"/>
+                <rect x="13" y="2" width="9" height="9" fill="#f72585"/>
+                <rect x="2" y="13" width="9" height="9" fill="#7209b7"/>
+                <rect x="13" y="13" width="9" height="9" fill="#4361ee"/>
+            </svg>
+        </div>
+
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <span>搜索</span>
+        </div>
+
+        <!-- 任务栏固定图标 -->
+        <div class="taskbar-icons">
+        </div>
+
+        <!-- 系统托盘 -->
+        <div class="system-tray">
+            <div class="tray-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                    <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                </svg>
+            </div>
+            <div class="tray-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+            </div>
+            <div class="tray-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M22 11h-4.4a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2H22"/>
+                </svg>
+            </div>
+            <div class="datetime" id="datetime">
+                <div class="time">00:00</div>
+                <div class="date">2024/12/15</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 设置固定时间
+        document.querySelector('.time').textContent = '12:34';
+        document.querySelector('.date').textContent = '2026/1/23';
+
+        // 桌面图标点击
+        document.querySelectorAll('.desktop-icon').forEach(icon => {
+            icon.addEventListener('dblclick', () => {
+                const windowId = icon.dataset.window;
+                openWindow(windowId);
+            });
+
+            icon.addEventListener('click', (e) => {
+                document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+                icon.classList.add('selected');
+            });
+        });
+
+        // 点击桌面空白处取消选中
+        document.getElementById('desktop').addEventListener('click', (e) => {
+            if (e.target.id === 'desktop') {
+                document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+            }
+        });
+
+        // 打开窗口
+        function openWindow(windowId) {
+            closeStartMenu();
+            const windowEl = document.getElementById('window-' + windowId);
+            const overlay = document.getElementById('overlay');
+            
+            // 关闭其他窗口
+            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+            
+            windowEl.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        // 关闭窗口
+        function closeWindow(windowId) {
+            const windowEl = document.getElementById('window-' + windowId);
+            const overlay = document.getElementById('overlay');
+            windowEl.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // 点击遮罩关闭窗口
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // 开始菜单
+        function toggleStartMenu() {
+            const menu = document.getElementById('startMenu');
+            menu.classList.toggle('active');
+        }
+
+        function closeStartMenu() {
+            document.getElementById('startMenu').classList.remove('active');
+        }
+
+        // 点击其他地方关闭开始菜单
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('startMenu');
+            const startBtn = document.querySelector('.start-btn');
+            if (!menu.contains(e.target) && !startBtn.contains(e.target)) {
+                closeStartMenu();
+            }
+        });
+
+        // 窗口拖动
+        let isDragging = false;
+        let dragWindow = null;
+        let dragOffset = { x: 0, y: 0 };
+
+        document.querySelectorAll('.window-header').forEach(header => {
+            header.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('window-btn')) return;
+                isDragging = true;
+                dragWindow = header.parentElement;
+                const rect = dragWindow.getBoundingClientRect();
+                dragOffset.x = e.clientX - rect.left;
+                dragOffset.y = e.clientY - rect.top;
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging || !dragWindow) return;
+            
+            let newX = e.clientX - dragOffset.x;
+            let newY = e.clientY - dragOffset.y;
+            
+            // 边界限制
+            newX = Math.max(0, Math.min(newX, window.innerWidth - dragWindow.offsetWidth));
+            newY = Math.max(0, Math.min(newY, window.innerHeight - 56 - dragWindow.offsetHeight));
+            
+            dragWindow.style.left = newX + 'px';
+            dragWindow.style.top = newY + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            dragWindow = null;
+        });
+
+        // 聊天功能
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            // 添加用户消息
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user';
+            userMsg.textContent = text;
+            messages.appendChild(userMsg);
+            
+            input.value = '';
+            
+            // 模拟机器人回复
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-message bot';
+                botMsg.textContent = '感谢您的留言！我们的客服人员会尽快回复您。如有紧急问题，请拨打客服热线：400-XXX-XXXX';
+                messages.appendChild(botMsg);
+                messages.scrollTop = messages.scrollHeight;
+            }, 1000);
+            
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function handleChatKey(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
