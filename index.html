@@ -549,10 +549,8 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         document.querySelectorAll('.desktop-icon').forEach(icon => {
-            icon.addEventListener('dblclick', () => { openWindow(icon.dataset.window); });
-            icon.addEventListener('click', () => {
-                document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
-                icon.classList.add('selected');
+            icon.addEventListener('click', () => { 
+                openWindow(icon.dataset.window); 
             });
         });
         document.getElementById('desktop').addEventListener('click', (e) => {
