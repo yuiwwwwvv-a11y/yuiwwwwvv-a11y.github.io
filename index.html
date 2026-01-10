@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desktop</title>
+    <title>Ʊ Space Master - Desktop</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
-        body { font-family: 'Noto Sans SC', 'Segoe UI', sans-serif; overflow: hidden; height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); position: relative; }
+        body { font-family: 'Segoe UI', 'Noto Sans SC', sans-serif; overflow: hidden; height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); position: relative; }
         body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 115, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(76, 201, 240, 0.08) 0%, transparent 40%); pointer-events: none; }
         .desktop { height: calc(100vh - 56px); padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, 90px); grid-template-rows: repeat(auto-fill, 100px); grid-auto-flow: column; gap: 8px; position: relative; z-index: 1; }
         .desktop-title { position: absolute; right: 60px; top: 50%; transform: translateY(-50%); text-align: center; pointer-events: none; }
@@ -66,7 +66,8 @@
         .window-content p { margin-bottom: 14px; }
         .window-content ul { margin: 12px 0; padding-left: 20px; }
         .window-content li { margin-bottom: 8px; }
-        .window-content a { color: #4cc9f0; }
+        .window-content a { color: #4cc9f0; text-decoration: none; }
+        .window-content a:hover { text-decoration: underline; }
         .highlight-box { background: rgba(76, 201, 240, 0.15); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #4cc9f0; margin: 20px 0; }
         .warning-box { background: rgba(255, 119, 115, 0.15); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #ff7773; margin: 20px 0; }
         .update-date { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 20px; }
@@ -83,20 +84,6 @@
         .version-info span { font-size: 12px; color: rgba(255, 255, 255, 0.5); }
         .version-download { padding: 8px 16px; background: rgba(255, 255, 255, 0.1); border: none; border-radius: 6px; color: #ffffff; font-size: 13px; cursor: pointer; transition: all 0.2s ease; }
         .version-download:hover { background: rgba(255, 255, 255, 0.2); }
-        .video-container { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; position: relative; overflow: hidden; }
-        .video-placeholder { display: flex; flex-direction: column; align-items: center; gap: 12px; color: rgba(255, 255, 255, 0.6); }
-        .play-btn { width: 72px; height: 72px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
-        .play-btn:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.1); }
-        .play-btn svg { width: 32px; height: 32px; margin-left: 4px; }
-        .chat-container { display: flex; flex-direction: column; height: 320px; }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
-        .chat-message { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 13px; }
-        .chat-message.bot { background: rgba(76, 201, 240, 0.2); align-self: flex-start; border-bottom-left-radius: 4px; }
-        .chat-message.user { background: rgba(255, 255, 255, 0.1); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-input-area { display: flex; gap: 10px; padding: 12px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-        .chat-input { flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px 14px; color: #ffffff; font-size: 13px; outline: none; }
-        .chat-input:focus { border-color: rgba(76, 201, 240, 0.5); background: rgba(255, 255, 255, 0.1); }
-        .chat-send { padding: 10px 20px; background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%); border: none; border-radius: 8px; color: #ffffff; font-size: 13px; cursor: pointer; }
         .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 56px; background: rgba(0, 0, 0, 0.3); display: none; z-index: 40; }
         .overlay.active { display: block; }
         .start-menu { position: fixed; bottom: 66px; left: 12px; width: 320px; background: rgba(30, 30, 46, 0.95); backdrop-filter: blur(20px); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); display: none; z-index: 200; overflow: hidden; }
@@ -107,7 +94,7 @@
         .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 16px; }
         .menu-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 8px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
         .menu-item:hover { background: rgba(255, 255, 255, 0.1); }
-        .menu-item .icon-small { width: 32px; height: 32px; font-size: 16px; }
+        .menu-item .icon-small { width: 32px; height: 32px; font-size: 16px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
         .menu-item span { font-size: 11px; color: rgba(255, 255, 255, 0.8); text-align: center; }
         .menu-footer { padding: 12px 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; }
         .menu-footer-btn { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 6px; color: rgba(255, 255, 255, 0.7); font-size: 12px; cursor: pointer; transition: all 0.2s ease; }
@@ -141,7 +128,7 @@
             <div class="icon-img icon-terms"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <span class="icon-text">Terms of Service</span>
         </div>
-        <div class="desktop-icon" data-window="agreement">
+        <div class="desktop-icon" data-window="about">
             <div class="icon-img icon-agreement"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <span class="icon-text">About Us</span>
         </div>
@@ -149,7 +136,6 @@
             <div class="icon-img icon-version"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
             <span class="icon-text">Version</span>
         </div>
-        
         <div class="desktop-icon" data-window="promo">
             <div class="icon-img icon-promo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
             <span class="icon-text">Promo Video</span>
@@ -161,10 +147,6 @@
         <div class="desktop-icon" data-window="product">
             <div class="icon-img icon-product"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
             <span class="icon-text">Product</span>
-        </div>
-        <div class="desktop-icon" data-window="refund">
-            <div class="icon-img icon-refund"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            <span class="icon-text">Refund Policy</span>
         </div>
     </div>
 
@@ -179,8 +161,9 @@
         <div class="window-content" style="text-align: center; padding: 60px 40px;">
             <div style="font-size: 64px; margin-bottom: 20px;">📦</div>
             <h2>No Version Available</h2>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 16px;">New version under development, stay tuned...</p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 30px;">Contact us: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87fef2a9eea9f0f0f0f0f1f1c7e0eae6eeeba9e4e8ea">[email&#160;protected]</a></p>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 16px;">New version under development, stay tuned…</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 12px;"><strong>System Requirements:</strong> Windows 10/11 (64-bit) | GPT Partition Only</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 30px;">Contact us: <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
         </div>
     </div>
 
@@ -206,46 +189,79 @@
         <div class="window-content">
             <h2>🛡️ Privacy Policy</h2>
             <p class="update-date">Last updated: January 2025</p>
-            <p>Welcome to Ʊ Space Master (hereinafter "the Service"). We value your privacy and this Privacy Policy explains how we collect, use, and protect your information.</p>
-            <div class="highlight-box"><strong>Core Principle: </strong>We only store basic account information and do not collect or store your personal file contents.</div>
+            
+            <p>Welcome to Ʊ Space Master (hereinafter referred to as "the Service"). We value your privacy, and this Privacy Policy explains how we collect, use, and protect your information.</p>
+            
+            <div class="highlight-box">
+                <strong>Core Principle:</strong> We only store basic account information and do not collect or store your personal file contents.
+            </div>
+
             <h3>1. Information We Collect</h3>
             <p>We only collect and store the following necessary account information:</p>
             <ul>
-                <li><strong>Registration: </strong>Email address, username, encrypted password</li>
-                <li><strong>Payment: </strong>Transaction records, account balance (payment details processed by third-party platforms)</li>
-                <li><strong>Basic Logs: </strong>Login time, IP address (for security only)</li>
+                <li><strong>Registration Information:</strong> Email address, username, encrypted password</li>
+                <li><strong>Payment Information:</strong> Transaction records, subscription status (payment details processed by PayPal and Creem)</li>
+                <li><strong>Basic Logs:</strong> Login time, IP address (for security purposes only)</li>
             </ul>
+
             <h3>2. Information We Do NOT Collect</h3>
-            <div class="warning-box"><strong>Important: </strong>We do NOT collect or store the following:</div>
-            <ul>
-                <li>Your personal file contents</li>
-                <li>Your disk file lists</li>
-                <li>Specific file info during cleanup</li>
-            </ul>
+            <div class="warning-box">
+                <strong>Important Notice:</strong> We do NOT collect or store the following:
+                <ul style="margin-top: 10px;">
+                    <li>Your personal file contents</li>
+                    <li>Your disk file lists</li>
+                    <li>Specific file information during cleanup or expansion</li>
+                    <li>Your disk partition structure</li>
+                </ul>
+            </div>
+
             <h3>3. Data Security</h3>
             <ul>
                 <li>All data transmission uses HTTPS encryption</li>
-                <li>Passwords are stored with irreversible encryption</li>
-                <li>Regular security audits and vulnerability scans</li>
+                <li>Passwords are stored using irreversible encryption</li>
+                <li>Data is stored on secure servers that meet industry standards</li>
+                <li>Regular security audits and vulnerability scans are conducted</li>
             </ul>
-            <h3>4. Your Rights</h3>
+
+            <h3>4. Data Retention</h3>
+            <ul>
+                <li><strong>Account Data:</strong> Retained for the duration of the account's existence</li>
+                <li><strong>Log Data:</strong> Automatically deleted after 90 days</li>
+                <li>After account deletion, all related data will be completely removed within 30 days</li>
+            </ul>
+
+            <h3>5. Third-Party Services</h3>
+            <p>We use the following third-party services:</p>
+            <ul>
+                <li><strong>PayPal / Creem:</strong> Process payments and subscriptions (subject to their privacy policies)</li>
+                <li><strong>Resend:</strong> Send verification and notification emails (only necessary information is transmitted)</li>
+            </ul>
+
+            <h3>6. Your Rights</h3>
             <p>You can at any time:</p>
             <ul>
-                <li><strong>Access: </strong>View your account information</li>
-                <li><strong>Correct: </strong>Modify your account information</li>
-                <li><strong>Delete: </strong>Request account deletion and remove all related data</li>
-                <li><strong>Export: </strong>Request export of your account data</li>
+                <li><strong>Access:</strong> View your account information</li>
+                <li><strong>Modify:</strong> Update your account information</li>
+                <li><strong>Delete:</strong> Request account deletion and removal of related data</li>
+                <li><strong>Export:</strong> Request export of your account data</li>
             </ul>
-            <h3>5. Cookie Usage</h3>
-            <p>We use necessary cookies to maintain your login status. We do not use any third-party tracking or advertising cookies.</p>
-            <h3>6. Children Privacy</h3>
-            <p>This service is not intended for children under 13. If we discover that we have collected personal information from children, we will delete it immediately.</p>
-            <h3>7. Policy Changes</h3>
-            <p>If this policy changes significantly, we will notify you via email or website announcement. Continued use of the service means you accept the updated policy.</p>
+
+            <h3>7. Cookie Usage</h3>
+            <p>We use necessary cookies to maintain login status. We do not use third-party tracking or advertising cookies.</p>
+
+            <h3>8. Children's Privacy</h3>
+            <p>This Service is not intended for children under 13 years of age. If we discover that we have collected information from children, we will delete it immediately.</p>
+
+            <h3>9. International Users</h3>
+            <p>This Service is available to users worldwide. Depending on your region, you may have additional data protection rights (such as GDPR, CCPA). To exercise these rights, please contact us.</p>
+
+            <h3>10. Policy Changes</h3>
+            <p>If there are significant changes to this policy, we will notify you via email or website announcement. Continued use of the Service indicates your acceptance of the updated policy.</p>
+
             <div class="contact-box">
-                <h3>8. Contact Us</h3>
+                <h3>11. Contact Us</h3>
                 <p>If you have any questions about this Privacy Policy, please contact:</p>
-                <p>📧 Email：<strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d9d58ec98ed7d7d7d7d6d6e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</a></strong></p>
+                <p>📧 Email: <strong><a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></strong></p>
             </div>
         </div>
     </div>
@@ -259,108 +275,200 @@
         <div class="window-content">
             <h2>📄 Terms of Service</h2>
             <p class="update-date">Last updated: January 2025</p>
-            <p>Welcome to Ʊ Space Master (hereinafter "the Service"). Please read the following terms carefully. By using the Service, you agree to be bound by these terms.</p>
+            
+            <p>Welcome to Ʊ Space Master (hereinafter referred to as "the Service"). Please read the following terms carefully. By using the Service, you agree to be bound by these terms.</p>
+
             <h3>1. Nature of Service</h3>
-            <div class="highlight-box"><strong>What is this Service: </strong>Ʊ Space Master is a disk cleanup and optimization tool that helps users clean system junk and free up disk space.</div>
-            <h3>2. Account Responsibility</h3>
+            <p>Ʊ Space Master is a disk space management tool that provides the following features:</p>
             <ul>
-                <li>You must use a valid email to register</li>
-                <li>You are responsible for keeping your account and password secure</li>
+                <li><strong>Disk Cleanup:</strong> Clean system junk, cache files, and free up disk space</li>
+                <li><strong>C Drive Expansion:</strong> Safely transfer space from other partitions to the C drive (GPT partition only)</li>
+                <li><strong>Space Analysis:</strong> Visualize disk usage</li>
+                <li><strong>AI Smart Recognition:</strong> Member-exclusive feature, provides safer deletion suggestions</li>
+            </ul>
+
+            <h3>2. System Requirements</h3>
+            <ul>
+                <li><strong>Operating System:</strong> Windows 10/11 (64-bit)</li>
+                <li><strong>Partition Format:</strong> GPT partition only (the format used by most modern computers)</li>
+                <li>Traditional MBR partitions (older computers from before 2010) are not supported</li>
+            </ul>
+
+            <h3>3. Account Responsibility</h3>
+            <ul>
+                <li>You must use a valid email address to register</li>
+                <li>You are responsible for the security of your account and password</li>
                 <li>You are responsible for all activities under your account</li>
-                <li>Contact us immediately if you notice any account issues</li>
+                <li>If you notice any account anomalies, please contact us immediately</li>
             </ul>
-            <h3>3. Usage Guidelines</h3>
-            <p>When using this Service, you agree NOT to:</p>
+
+            <h3>4. Usage Restrictions</h3>
+            <p>When using the Service, you must not:</p>
             <ul>
-                <li>Use the Service for any illegal activities</li>
-                <li>Attempt to bypass security restrictions or authorization</li>
-                <li>Crack, decompile, or modify the software in any way</li>
+                <li>Use it for any illegal activities</li>
+                <li>Attempt to bypass security restrictions or authorization verification</li>
+                <li>Crack, decompile, or modify the software</li>
                 <li>Resell or share accounts or software licenses</li>
+                <li>Use automated tools to register accounts in bulk</li>
             </ul>
-            <h3>4. Payment and Billing</h3>
+
+            <h3>5. Subscription and Payment</h3>
             <ul>
-                <li>This Service offers free and paid versions</li>
-                <li>Paid version uses subscription or one-time purchase</li>
-                <li>Prices are as shown on the website or in-app</li>
+                <li>We offer a permanent free version and a paid member version</li>
+                <li><strong>Member Subscription:</strong> $5/month, auto-renewal</li>
+                <li>All payments are securely processed through PayPal or Creem</li>
+                <li>After canceling a subscription, member features will expire at the end of the current billing cycle</li>
             </ul>
-            <h3>5. Refund Policy</h3>
+
+            <h3>6. Free Version vs. Member Version</h3>
             <div class="highlight-box">
-                <p><strong>Refund Conditions:</strong></p>
-                <ul>
-                    <li>Full refund available within 7 days of purchase</li>
-                    <li>After 7 days, 70% refund of remaining subscription value</li>
+                <p><strong>Free Version Features:</strong></p>
+                <ul style="margin-top: 8px;">
+                    <li>Disk cleanup (unlimited)</li>
+                    <li>C drive expansion (unlimited)</li>
+                    <li>Space analysis</li>
                 </ul>
-                <p style="margin-top: 12px;"><strong>Refund Process:</strong></p>
-                <ul>
-                    <li>Send refund request to support email</li>
-                    <li>Email subject: "Refund Request - Your Username"</li>
-                    <li>We will process your request within 7 business days</li>
+                <p style="margin-top: 12px;"><strong>Member-Exclusive Features:</strong></p>
+                <ul style="margin-top: 8px;">
+                    <li>AI smart recognition to reduce risk of accidental deletion</li>
+                    <li>AI provides safe deletion suggestions and risk ratings</li>
+                    <li>Priority technical support</li>
                 </ul>
             </div>
-            <h3>6. Service Availability</h3>
+
+            <h3>7. Refund Policy</h3>
             <ul>
-                <li>We do not guarantee 100% uptime</li>
-                
-                <li>Scheduled maintenance will be notified in advance</li>
+                <li>You can cancel your subscription at any time, with refunds calculated based on days used</li>
+                <li><strong>Refund Amount = (Remaining Days / Total Days) × Subscription Fee × 80%</strong></li>
+                <li>Example: For a $5/month subscription, if you cancel after 10 days, refund = (20/30) × $5 × 80% = $2.67</li>
+                <li>Refunds will be processed within 5 business days</li>
             </ul>
-            <h3>7. Disclaimer</h3>
+            
+            <p><strong>Refund Process:</strong></p>
+            <ul>
+                <li>Send a refund request to uspacemaster@gmail.com</li>
+                <li>Email subject: "Refund Request - [Your Username]"</li>
+                <li>State your reason for the refund</li>
+            </ul>
+            
+            <p><strong>Not Eligible for Refund:</strong></p>
+            <ul>
+                <li>Accounts banned for violating Terms of Service</li>
+                <li>Duplicate subscriptions that have already requested a refund</li>
+            </ul>
+
+            <h3>8. Service Availability</h3>
+            <ul>
+                <li>We strive to keep the Service stable but do not guarantee 100% uptime</li>
+                <li>Scheduled maintenance will be announced 24 hours in advance</li>
+                <li>Emergency maintenance may not be announced in advance</li>
+            </ul>
+
+            <h3>9. Data Security and Disclaimer</h3>
             <div class="warning-box">
-                <p><strong>Important Notice:</strong></p>
-                <ul>
-                    <li>Please confirm files before cleanup, we are not responsible for accidental deletion</li>
-                    <li>We recommend backing up important data before cleanup</li>
-                    <li>Users are responsible for data loss due to their own misoperation</li>
-                    <li>This Service is provided "as is" without any express or implied warranty</li>
+                <strong>Important Notice:</strong>
+                <ul style="margin-top: 10px;">
+                    <li>Before performing cleanup or expansion, the software will display the content to be operated on. Please confirm carefully</li>
+                    <li>We strongly recommend backing up important data before performing disk operations</li>
+                    <li>We are not responsible for data loss caused by improper user operations</li>
+                    <li>The Service is provided "as is" without any express or implied warranties</li>
+                    <li>The software has undergone thorough testing, but disk operations inherently carry risks</li>
                 </ul>
             </div>
-            <h3>8. Intellectual Property</h3>
-            <p>The interface design, code, and trademarks of this software are protected by intellectual property law and owned by Bitstudio.</p>
-            <h3>9. Account Termination</h3>
-            <p>We may suspend or terminate your account if you: violate these Terms, engage in fraud or illegal activities, abuse the Service, or remain inactive for over 12 months.</p>
-            <h3>10. Changes to Terms</h3>
-            <p>We reserve the right to modify these terms. Significant changes will be notified via email or website.</p>
-            <h3>11. Dispute Resolution</h3>
-            <p>In case of disputes, both parties should first resolve through friendly negotiation. If negotiation fails, either party may file a lawsuit in a court with jurisdiction.</p>
+
+            <h3>10. Intellectual Property</h3>
+            <ul>
+                <li>The software interface design, code, and trademarks are protected by intellectual property law</li>
+                <li>All rights are owned by Bitstudio</li>
+                <li>Copying, modifying, or distributing without authorization is prohibited</li>
+            </ul>
+
+            <h3>11. Account Termination</h3>
+            <p>We reserve the right to suspend or terminate your account under the following circumstances:</p>
+            <ul>
+                <li>Violation of these Terms of Service</li>
+                <li>Fraud or illegal activities</li>
+                <li>Abuse of the Service or excessive resource usage</li>
+                <li>Account inactive for 12 consecutive months</li>
+            </ul>
+
+            <h3>12. Limitation of Liability</h3>
+            <p>To the maximum extent permitted by law:</p>
+            <ul>
+                <li>Our total liability does not exceed the subscription fees you have paid in the last 12 months</li>
+                <li>We are not liable for indirect losses, lost profits, or data loss</li>
+            </ul>
+
+            <h3>13. Changes to Terms</h3>
+            <ul>
+                <li>We reserve the right to modify these terms</li>
+                <li>Significant changes will be announced via email or website</li>
+                <li>Continued use of the Service indicates acceptance of the updated terms</li>
+            </ul>
+
+            <h3>14. Applicable Law and Dispute Resolution</h3>
+            <ul>
+                <li>The interpretation, validity, and enforcement of these Terms shall be governed by the laws of your jurisdiction</li>
+                <li>If local laws conflict with these Terms, local laws shall prevail</li>
+                <li>Disputes should first be resolved through friendly negotiation</li>
+                <li>If negotiation fails, you have the right to file a lawsuit in a court with jurisdiction in your location</li>
+            </ul>
+
             <div class="contact-box">
-                <h3>12. Contact Information</h3>
-                <p>📧 Email：<strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="245d510a4d0a535353535252644349454d480a474b49">[email&#160;protected]</a></strong></p>
-                <p>We will reply to your email within 1-3 business days.</p>
+                <h3>15. Contact Information</h3>
+                <p>📧 Email: <strong><a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></strong></p>
+                <p>We will respond within 1-3 business days</p>
             </div>
         </div>
     </div>
 
     <!-- About Us Window -->
-    <div class="window" id="window-agreement" style="top: 70px; left: 320px;">
+    <div class="window" id="window-about" style="top: 70px; left: 320px;">
         <div class="window-header">
             <div class="window-title"><div class="title-icon icon-agreement">👥</div>About Us</div>
-            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('agreement')"></div></div>
+            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('about')"></div></div>
         </div>
         <div class="window-content">
             <h2>About Us</h2>
             
-            <p><strong>Bitstudio</strong> is a small team focused on system optimization tools, dedicated to providing simple, efficient, and secure disk cleanup solutions.</p>
+            <p><strong>Bitstudio</strong> is an independent development team focused on system optimization tools, dedicated to providing simple, efficient, and secure disk management solutions.</p>
             
             <div class="highlight-box">
-                <strong>🎯 Our Mission: </strong>Keep every computer in optimal condition, making disk cleanup simple and smart.
+                <strong>🎯 Our Mission</strong><br>
+                Keep every computer in optimal condition and make disk space management simple and intelligent.
             </div>
 
-            <h3>💡 Why We Built This?</h3>
-            <p>We found that disk cleanup software on the market is either too complex or full of ads and bundled software. Users just want to clean junk files but face endless popups and promotions.</p>
-            <p>So we decided to build a <strong>pure</strong> cleanup tool: no ads, no bundles, no tricks - just focused on cleaning your disk junk.</p>
+            <h3>💡 Why We Created Space Master?</h3>
+            <p>Disk tools on the market have these problems:</p>
+            <ul>
+                <li>Cleanup software is full of ads, bundled promotions, and provides a terrible experience</li>
+                <li>Partition tools are complex to operate, difficult for ordinary users to use</li>
+                <li>Running out of C drive space is a common problem, but the barrier to expansion is high</li>
+            </ul>
+            <p>We decided to create a clean space management tool:</p>
+            <ul>
+                <li>No ads, no bundles, no pop-ups</li>
+                <li>One-click cleanup of junk, one-click C drive expansion</li>
+                <li>Simple and safe, anyone can use it</li>
+                <li>AI-powered, smarter deletion suggestions</li>
+            </ul>
 
             <h3>🛠️ Our Philosophy</h3>
             <ul>
-                <li><strong>Simplicity First: </strong>One-click operation, no expertise needed</li>
-                <li><strong>Safety First: </strong>Better to clean less than delete important files</li>
-                <li><strong>Respect Users: </strong>No ads, no bundles, no background processes</li>
-                <li><strong>Continuous Improvement: </strong>Listen to feedback and keep improving</li>
+                <li><strong>Simplicity First:</strong> Simplify complex features, one-click completion</li>
+                <li><strong>Safety First:</strong> Better to clean less than to delete important files</li>
+                <li><strong>Respect Users:</strong> No ads, no tracking, no background processes</li>
+                <li><strong>Continuous Improvement:</strong> Listen to feedback and iterate quickly</li>
             </ul>
 
-            <h3>📮 Contact Us</h3>
-            <p>We value your feedback. If you have any questions or ideas, feel free to contact us:</p>
+            <h3>👥 Team</h3>
+            <p>We are a small and focused team. Every member loves technology and pursues the ultimate product experience.</p>
+
             <div class="contact-box">
-                <p>📧 Email：<strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e19894cf88cf969696969797a1868c80888dcf828e8c">[email&#160;protected]</a></strong></p>
-                <p>We will reply within 1-3 business days.</p>
+                <h3>📮 Contact Us</h3>
+                <p>We value your feedback and suggestions:</p>
+                <p>📧 Email: <strong><a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></strong></p>
+                <p>💬 Feedback Response: 1-3 business days</p>
             </div>
         </div>
     </div>
@@ -371,14 +479,29 @@
             <div class="window-title"><div class="title-icon icon-version">ℹ️</div>Version</div>
             <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('version')"></div></div>
         </div>
-        <div class="window-content" style="text-align: center; padding: 60px 40px;">
-            <div style="font-size: 64px; margin-bottom: 20px;">🚧</div>
-            <h2>Under Development</h2>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 16px;">First release coming soon, stay tuned...</p>
+        <div class="window-content">
+            <h2>Version Information</h2>
+            
+            <p><strong>Current Version:</strong> Under Development</p>
+            <p><strong>Version Type:</strong> Alpha Testing</p>
+
+            <h3>🚧 Features In Development:</h3>
+            <ul>
+                <li>Disk cleanup engine</li>
+                <li>C drive expansion feature (GPT partition)</li>
+                <li>Space analysis visualization</li>
+                <li>AI smart recognition system</li>
+                <li>Account and subscription system</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>📅 Expected Release:</strong> Q1 2026
+            </div>
+
+            <h3>🔔 Want to Be Notified of Updates?</h3>
+            <p>Send an email to <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a> with the subject "Subscribe to Updates"</p>
         </div>
     </div>
-
-    
 
     <!-- Promo Video Window -->
     <div class="window" id="window-promo" style="top: 80px; left: 240px; width: 500px;">
@@ -386,27 +509,67 @@
             <div class="window-title"><div class="title-icon icon-promo">▶️</div>Promo Video</div>
             <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('promo')"></div></div>
         </div>
-        <div class="window-content" style="text-align: center; padding: 60px 40px;">
+        <div class="window-content" style="text-align: center; padding: 40px;">
             <div style="font-size: 64px; margin-bottom: 20px;">🎬</div>
-            <h2>Video Not Uploaded</h2>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 16px;">Promo video in production, stay tuned...</p>
+            <h2>Video Coming Soon</h2>
+            <p style="color: rgba(255,255,255,0.6); margin-top: 16px;">We are creating a product demo video to showcase Space Master's core features:</p>
+            <ul style="text-align: left; margin: 20px auto; max-width: 400px; color: rgba(255,255,255,0.7);">
+                <li>One-click disk cleanup demo</li>
+                <li>Complete C drive expansion process</li>
+                <li>AI smart recognition feature showcase</li>
+                <li>Space analysis visualization effects</li>
+            </ul>
+            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 30px;">📧 Want to be notified when the video is released?</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 13px;">Contact us: <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
         </div>
     </div>
 
     <!-- Support Window -->
-    <div class="window" id="window-support" style="top: 100px; left: 350px; width: 450px;">
+    <div class="window" id="window-support" style="top: 100px; left: 350px;">
         <div class="window-header">
             <div class="window-title"><div class="title-icon icon-support">💬</div>Support</div>
             <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('support')"></div></div>
         </div>
-        <div class="window-content" style="text-align: center; padding: 40px;">
-            <div style="font-size: 64px; margin-bottom: 20px;">💬</div>
-            <h2>Contact Us</h2>
-            <p style="margin: 20px 0; color: rgba(255,255,255,0.7);">Click the button below to contact us on X (Twitter)</p>
-            <a href="https://x.com/wngy162537" target="_blank" style="display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%); border-radius: 25px; color: white; text-decoration: none; font-weight: 500; transition: all 0.2s ease;">
-                𝕏 Contact Us on X
-            </a>
-            <p style="margin-top: 30px; font-size: 13px; color: rgba(255,255,255,0.5);">Or email us at: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cf5f9a2e5a2fbfbfbfbfafaccebe1ede5e0a2efe3e1">[email&#160;protected]</a></p>
+        <div class="window-content">
+            <h2>Need Help?</h2>
+            
+            <div class="highlight-box">
+                <strong>📧 Email Support</strong><br>
+                <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a><br>
+                <span style="font-size: 12px; color: rgba(255,255,255,0.6);">(1-3 business day response)</span>
+            </div>
+
+            <h3>📚 Frequently Asked Questions</h3>
+            
+            <p><strong>Q: Is Space Master safe?</strong></p>
+            <p>A: The software has undergone rigorous testing, but disk operations inherently carry risks. Please be sure to back up important data before operating.</p>
+            
+            <p><strong>Q: Which Windows versions are supported?</strong></p>
+            <p>A: Windows 10 and Windows 11 (64-bit), GPT partition only. Most modern computers use GPT format.</p>
+            
+            <p><strong>Q: My computer uses MBR partition, can I use it?</strong></p>
+            <p>A: Sorry, we currently do not support traditional MBR partitions (mainly older computers from before 2010). You can check the partition type in Disk Management.</p>
+            
+            <p><strong>Q: What's the difference between free and member versions?</strong></p>
+            <p>A: The free version can use cleanup and expansion features unlimited times. The member version provides AI smart recognition to reduce the risk of accidental deletion and offers safer deletion suggestions.</p>
+            
+            <p><strong>Q: Will cleanup delete important files?</strong></p>
+            <p>A: The software only cleans system cache, temporary files, and other junk data. It will display a cleanup list for your confirmation before executing. The member version's AI feature further reduces the risk of accidental deletion.</p>
+            
+            <p><strong>Q: Will C drive expansion cause data loss?</strong></p>
+            <p>A: The expansion process uses safe partition adjustment algorithms, but we strongly recommend backing up data first.</p>
+            
+            <p><strong>Q: How do I get a refund?</strong></p>
+            <p>A: You can cancel your subscription at any time and receive 80% of the remaining fees based on days used. See Section 7 of the Terms of Service for details.</p>
+            
+            <p><strong>Q: Can I use it on multiple computers?</strong></p>
+            <p>A: A single account can log in on multiple devices, but member features can only be used on one device at a time.</p>
+
+            <div class="contact-box">
+                <h3>💬 Other Questions?</h3>
+                <p>Send us an email, we'll respond as soon as possible!</p>
+                <p>📧 <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
+            </div>
         </div>
     </div>
 
@@ -417,111 +580,133 @@
             <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('product')"></div></div>
         </div>
         <div class="window-content">
-            <h2>Ʊ Space Master - Smart Disk Cleanup Expert</h2>
-            <p>Ʊ Space Master is a professional disk cleanup software that helps you easily free up disk space and keep your computer running at its best.</p>
+            <h2>Ʊ Space Master</h2>
+            <p style="font-size: 18px; color: #4cc9f0; margin-bottom: 20px;">Make Disk Space Management Simple</p>
+
+            <h3>Core Features</h3>
             
+            <p><strong>🧹 Smart Disk Cleanup</strong></p>
+            <ul>
+                <li>One-click scan for system junk and cache files</li>
+                <li>Categorize by risk level, safe cleanup</li>
+                <li>Visualize space analysis, understand disk usage</li>
+                <li><strong>Member Exclusive:</strong> AI smart recognition to reduce risk of accidental deletion</li>
+            </ul>
+
+            <p><strong>💾 Lossless C Drive Expansion</strong></p>
+            <ul>
+                <li>Safely transfer space from D drive, E drive, and other partitions</li>
+                <li>No need to reinstall system, no data loss</li>
+                <li>Smart calculation, automatic partition boundary adjustment</li>
+                <li>Supports GPT partition (standard for modern computers)</li>
+            </ul>
+
+            <p><strong>📊 Space Analysis Visualization</strong></p>
+            <ul>
+                <li>Intuitively display disk usage</li>
+                <li>Find large files occupying space</li>
+                <li>Help optimize storage structure</li>
+            </ul>
+
+            <p><strong>🤖 AI Smart Recognition</strong> (Member Exclusive)</p>
+            <ul>
+                <li>AI determines if files are safe to delete</li>
+                <li>Smart risk rating to avoid deleting important files</li>
+                <li>Provides personalized deletion suggestions</li>
+            </ul>
+
+            <h3>Product Advantages</h3>
+            <ul>
+                <li><strong>✨ Simple and Easy:</strong> Ordinary users can operate easily, no expertise needed</li>
+                <li><strong>🛡️ Safe and Reliable:</strong> Thoroughly tested, smart risk prompts before operations</li>
+                <li><strong>🚫 Clean, No Ads:</strong> No bundles, no pop-ups, no background processes</li>
+                <li><strong>⚡ Efficient and Fast:</strong> Optimized algorithms, quickly complete cleanup and expansion</li>
+                <li><strong>🆓 Permanent Free Version:</strong> Core features completely free, unlimited use</li>
+            </ul>
+
+            <h3>Use Cases</h3>
+            <ul>
+                <li>C drive space insufficient, system running slowly</li>
+                <li>Too many junk files, high disk usage</li>
+                <li>Want to clean disk but don't know where to start</li>
+                <li>Need to expand C drive but worried about data loss</li>
+                <li>Worried about deleting important files, need AI assistance</li>
+            </ul>
+
+            <h3>Pricing</h3>
             <div class="highlight-box">
-                <strong>🚀 Core Concept: </strong>Say goodbye to complex manual cleanup. Intelligently identify and safely remove useless files, freeing up valuable disk space with one click.
+                <p><strong>💚 Free Version - Permanently Free</strong></p>
+                <ul style="margin-top: 8px;">
+                    <li>Unlimited disk cleanup</li>
+                    <li>Unlimited C drive expansion</li>
+                    <li>Space analysis visualization</li>
+                </ul>
+                <p style="margin-top: 16px;"><strong>⭐ Member Version - $5/month</strong></p>
+                <ul style="margin-top: 8px;">
+                    <li>Includes all free version features</li>
+                    <li>AI smart recognition and risk rating</li>
+                    <li>AI safe deletion suggestions</li>
+                    <li>Priority technical support</li>
+                </ul>
             </div>
 
-            <h3>✨ Features</h3>
+            <h3>System Requirements</h3>
             <ul>
-                <li><strong>Smart Detection: </strong>Accurately identify system junk, cache files, temp files and other useless data</li>
-                <li><strong>Safe & Reliable: </strong>Smart analysis of file importance, never delete important files, preview before cleanup</li>
-                <li><strong>One-Click Cleanup: </strong>Simple operation, no expertise needed, deep cleanup with one click</li>
-                <li><strong>Real-time Monitoring: </strong>Continuously monitor disk usage and provide cleanup suggestions</li>
-                <li><strong>Privacy Protection: </strong>All operations are done locally, no personal files uploaded</li>
+                <li>Windows 10/11 (64-bit)</li>
+                <li>GPT partition (most modern computers)</li>
             </ul>
 
-            <h3>🎯 Use Cases</h3>
-            <ul>
-                <li>Low C drive space, slow system performance</li>
-                <li>Browser cache and download leftovers taking up space</li>
-                <li>Junk files left after software uninstallation</li>
-                <li>Temp files accumulated from system updates</li>
-                <li>Want to maintain computer health regularly</li>
-            </ul>
-
-            <h3>💡 Why Choose Us?</h3>
-            <p>Cleanup software on the market is often bloated with ads. Ʊ Space Master focuses on one thing: <strong>smart, safe, and efficient disk cleanup</strong>. Clean interface, powerful features - that is our pursuit.</p>
-
-            <div class="contact-box">
-                <h3>Contact Us</h3>
-                <p>For any questions or suggestions, contact us:</p>
-                <p>📧 Email：<strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dea7abf0b7f0a9a9a9a9a8a89eb9b3bfb7b2f0bdb1b3">[email&#160;protected]</a></strong></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Refund Policy Window -->
-    <div class="window" id="window-refund" style="top: 70px; left: 280px;">
-        <div class="window-header">
-            <div class="window-title"><div class="title-icon icon-refund">💰</div>Refund Policy</div>
-            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('refund')"></div></div>
-        </div>
-        <div class="window-content">
-            <h2>Refund Policy</h2>
-            <p class="update-date">Last updated: January 2025</p>
-
-            <p>At Bitstudio, we want you to be completely satisfied with your purchase. This refund policy outlines the terms and conditions for refunds on our software products.</p>
-
-            <h3>30-Day Money-Back Guarantee</h3>
-            <p>We offer a <strong>30-day money-back guarantee</strong> on all purchases of Ʊ Space Master. If you are not satisfied with the software for any reason, you may request a full refund within 30 days of your purchase date.</p>
-
-            <h3>How to Request a Refund</h3>
-            <p>To request a refund, please contact us at:</p>
-            <ul>
-                <li>Email: <a href="mailto:yu.i.wwwwvv@gmail.com">yu.i.wwwwvv@gmail.com</a></li>
-            </ul>
-            <p>Please include the following information in your refund request:</p>
-            <ul>
-                <li>Your order number or transaction ID</li>
-                <li>The email address used for purchase</li>
-                <li>Reason for the refund (optional, but helps us improve)</li>
-            </ul>
-
-            <h3>Refund Processing</h3>
-            <ul>
-                <li>Refunds will be processed within <strong>5-10 business days</strong> after approval</li>
-                <li>Refunds will be issued to the original payment method</li>
-                <li>You will receive an email confirmation once the refund is processed</li>
-            </ul>
-
-            <h3>Conditions</h3>
-            <ul>
-                <li>Refund requests must be made within 30 days of purchase</li>
-                <li>Each customer is eligible for one refund per product</li>
-                <li>After a refund is issued, your license will be deactivated</li>
-            </ul>
-
-            <div class="highlight-box">
-                <strong>Note:</strong> We recommend trying our free trial version before purchasing to ensure the software meets your needs.
-            </div>
-
-            <h3>Contact Us</h3>
-            <p>If you have any questions about our refund policy, please contact us:</p>
-            <div class="contact-box">
-                <p>📧 Email: <strong><a href="mailto:yu.i.wwwwvv@gmail.com">yu.i.wwwwvv@gmail.com</a></strong></p>
-                <p>🐦 Twitter: <strong><a href="https://twitter.com/wngy162537" target="_blank">@wngy162537</a></strong></p>
+            <div class="contact-box" style="text-align: center;">
+                <h3>Download Now</h3>
+                <p>Click the "Download" button at the top to get the latest version</p>
+                <p style="margin-top: 20px;">📧 Business Inquiries: <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
             </div>
         </div>
     </div>
 
     <!-- Start Menu -->
     <div class="start-menu" id="startMenu">
-        <div class="menu-header"><h3>Welcome</h3><p>Select an app to start</p></div>
+        <div class="menu-header">
+            <h3>Welcome</h3>
+            <p>Select an app to start</p>
+        </div>
         <div class="menu-grid">
-            <div class="menu-item" onclick="openWindow('download'); toggleStartMenu();"><div class="icon-small icon-download">📥</div><span>Download</span></div>
-            <div class="menu-item" onclick="openWindow('history'); toggleStartMenu();"><div class="icon-small icon-history">🕐</div><span>History</span></div>
-            <div class="menu-item" onclick="openWindow('privacy'); toggleStartMenu();"><div class="icon-small icon-privacy">🛡️</div><span>Privacy</span></div>
-            <div class="menu-item" onclick="openWindow('terms'); toggleStartMenu();"><div class="icon-small icon-terms">📄</div><span>Terms</span></div>
-            <div class="menu-item" onclick="openWindow('agreement'); toggleStartMenu();"><div class="icon-small icon-agreement">👥</div><span>About</span></div>
-            <div class="menu-item" onclick="openWindow('version'); toggleStartMenu();"><div class="icon-small icon-version">ℹ️</div><span>Version</span></div>
-            
-            <div class="menu-item" onclick="openWindow('promo'); toggleStartMenu();"><div class="icon-small icon-promo">▶️</div><span>Promo</span></div>
-            <div class="menu-item" onclick="openWindow('support'); toggleStartMenu();"><div class="icon-small icon-support">💬</div><span>Support</span></div>
-            <div class="menu-item" onclick="openWindow('product'); toggleStartMenu();"><div class="icon-small icon-product">💻</div><span>Product</span></div>
-            <div class="menu-item" onclick="openWindow('refund'); toggleStartMenu();"><div class="icon-small icon-refund">💰</div><span>Refund</span></div>
+            <div class="menu-item" onclick="openWindow('download'); toggleStartMenu();">
+                <div class="icon-small icon-download">📥</div>
+                <span>Download</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('history'); toggleStartMenu();">
+                <div class="icon-small icon-history">🕐</div>
+                <span>History</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('privacy'); toggleStartMenu();">
+                <div class="icon-small icon-privacy">🛡️</div>
+                <span>Privacy</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('terms'); toggleStartMenu();">
+                <div class="icon-small icon-terms">📄</div>
+                <span>Terms</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('about'); toggleStartMenu();">
+                <div class="icon-small icon-agreement">👥</div>
+                <span>About</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('version'); toggleStartMenu();">
+                <div class="icon-small icon-version">ℹ️</div>
+                <span>Version</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('promo'); toggleStartMenu();">
+                <div class="icon-small icon-promo">▶️</div>
+                <span>Promo</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('support'); toggleStartMenu();">
+                <div class="icon-small icon-support">💬</div>
+                <span>Support</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('product'); toggleStartMenu();">
+                <div class="icon-small icon-product">💻</div>
+                <span>Product</span>
+            </div>
         </div>
         <div class="menu-footer">
             <div class="menu-footer-btn">⚙️ Settings</div>
@@ -536,48 +721,106 @@
 
     <!-- Taskbar -->
     <div class="taskbar">
-        <div class="start-btn" onclick="toggleStartMenu()"><span style="font-size: 24px; color: #4cc9f0; font-weight: bold;">Ʊ</span></div>
-        <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search</span></div>
+        <div class="start-btn" onclick="toggleStartMenu()">
+            <span style="font-size: 24px; color: #4cc9f0; font-weight: bold;">Ʊ</span>
+        </div>
+        <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <span>Search</span>
+        </div>
         <div class="taskbar-icons"></div>
         <div class="system-tray">
-            <div class="tray-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
-            <div class="tray-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
-            <div class="tray-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M22 11h-4.4a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2H22"/></svg></div>
-            <div class="datetime"><div class="time">12:34</div><div class="date">2025/1/23</div></div>
+            <div class="tray-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                    <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                </svg>
+            </div>
+            <div class="tray-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+            </div>
+            <div class="tray-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                    <path d="M22 11h-4.4a2 2 0 0 0-2 2v0a2 2 0 0 0 2 2H22"/>
+                </svg>
+            </div>
+            <div class="datetime">
+                <div class="time">12:34</div>
+                <div class="date">2025/1/10</div>
+            </div>
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
+        // Desktop icon click handler
         document.querySelectorAll('.desktop-icon').forEach(icon => {
             icon.addEventListener('click', () => { 
                 openWindow(icon.dataset.window); 
             });
         });
+
+        // Desktop click to deselect icons
         document.getElementById('desktop').addEventListener('click', (e) => {
-            if (e.target.id === 'desktop') document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+            if (e.target.id === 'desktop') {
+                document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+            }
         });
+
+        // Window management functions
         function openWindow(windowId) {
             closeStartMenu();
             document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-            document.getElementById('window-' + windowId).classList.add('active');
-            document.getElementById('overlay').classList.add('active');
+            const targetWindow = document.getElementById('window-' + windowId);
+            if (targetWindow) {
+                targetWindow.classList.add('active');
+                document.getElementById('overlay').classList.add('active');
+            }
         }
+
         function closeWindow(windowId) {
             document.getElementById('window-' + windowId).classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
+            const anyWindowOpen = document.querySelector('.window.active');
+            if (!anyWindowOpen) {
+                document.getElementById('overlay').classList.remove('active');
+            }
         }
+
+        // Overlay click to close all windows
         document.getElementById('overlay').addEventListener('click', () => {
             document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
             document.getElementById('overlay').classList.remove('active');
         });
-        function toggleStartMenu() { document.getElementById('startMenu').classList.toggle('active'); }
-        function closeStartMenu() { document.getElementById('startMenu').classList.remove('active'); }
+
+        // Start menu toggle
+        function toggleStartMenu() { 
+            document.getElementById('startMenu').classList.toggle('active'); 
+        }
+
+        function closeStartMenu() { 
+            document.getElementById('startMenu').classList.remove('active'); 
+        }
+
+        // Click outside to close start menu
         document.addEventListener('click', (e) => {
             const menu = document.getElementById('startMenu');
             const startBtn = document.querySelector('.start-btn');
-            if (!menu.contains(e.target) && !startBtn.contains(e.target)) closeStartMenu();
+            if (!menu.contains(e.target) && !startBtn.contains(e.target)) {
+                closeStartMenu();
+            }
         });
+
+        // Window dragging functionality
         let isDragging = false, dragWindow = null, dragOffset = { x: 0, y: 0 };
+
         document.querySelectorAll('.window-header').forEach(header => {
             header.addEventListener('mousedown', (e) => {
                 if (e.target.classList.contains('window-btn')) return;
@@ -588,6 +831,7 @@
                 dragOffset.y = e.clientY - rect.top;
             });
         });
+
         document.addEventListener('mousemove', (e) => {
             if (!isDragging || !dragWindow) return;
             let newX = Math.max(0, Math.min(e.clientX - dragOffset.x, window.innerWidth - dragWindow.offsetWidth));
@@ -595,9 +839,25 @@
             dragWindow.style.left = newX + 'px';
             dragWindow.style.top = newY + 'px';
         });
-        document.addEventListener('mouseup', () => { isDragging = false; dragWindow = null; });
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const messages = document.getElementById('chatMessages');
-            const text = input.value.trim();
-            if 
+
+        document.addEventListener('mouseup', () => { 
+            isDragging = false; 
+            dragWindow = null; 
+        });
+
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                          now.getMinutes().toString().padStart(2, '0');
+            const dateStr = now.getFullYear() + '/' + 
+                          (now.getMonth() + 1) + '/' + 
+                          now.getDate();
+            document.querySelector('.time').textContent = timeStr;
+            document.querySelector('.date').textContent = dateStr;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+    </script>
+</body>
+</html>
