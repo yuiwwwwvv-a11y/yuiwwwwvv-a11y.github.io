@@ -148,6 +148,10 @@
             <div class="icon-img icon-product"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
             <span class="icon-text">Product</span>
         </div>
+        <div class="desktop-icon" data-window="refund">
+            <div class="icon-img icon-refund"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <span class="icon-text">Refund Policy</span>
+        </div>
     </div>
 
     <div class="overlay" id="overlay"></div>
@@ -233,9 +237,10 @@
             <h3>5. Third-Party Services</h3>
             <p>We use the following third-party services:</p>
             <ul>
-                <li><strong>PayPal / Creem:</strong> Process payments and subscriptions (subject to their privacy policies)</li>
+                <li><strong>Creem (Merchant of Record):</strong> Processes all payments and subscriptions, handles tax compliance, VAT requirements, and fraud prevention (subject to their privacy policy at <a href="https://www.creem.io/privacy" target="_blank">creem.io/privacy</a>)</li>
                 <li><strong>Resend:</strong> Send verification and notification emails (only necessary information is transmitted)</li>
             </ul>
+            <p style="margin-top: 12px;"><em>Note: Creem acts as our merchant of record, meaning they are the official seller on record for all transactions while we provide the software service.</em></p>
 
             <h3>6. Your Rights</h3>
             <p>You can at any time:</p>
@@ -316,7 +321,8 @@
             <ul>
                 <li>We offer a permanent free version and a paid member version</li>
                 <li><strong>Member Subscription:</strong> $5/month, auto-renewal</li>
-                <li>All payments are securely processed through PayPal or Creem</li>
+                <li>All payments are securely processed by <strong>Creem as our merchant of record</strong>, which handles payment processing, tax compliance, and fraud protection</li>
+                <li>Alternative payment methods may include PayPal depending on your region</li>
                 <li>After canceling a subscription, member features will expire at the end of the current billing cycle</li>
             </ul>
 
@@ -416,6 +422,8 @@
 
             <div class="contact-box">
                 <h3>15. Contact Information</h3>
+                <p><strong>Service Provider:</strong> Wang Ye (Individual Developer)</p>
+                <p><strong>Brand Name:</strong> Bitstudio / Space Master</p>
                 <p>📧 Email: <strong><a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></strong></p>
                 <p>We will respond within 1-3 business days</p>
             </div>
@@ -463,6 +471,9 @@
 
             <h3>👥 Team</h3>
             <p>We are a small and focused team. Every member loves technology and pursues the ultimate product experience.</p>
+            
+            <p style="margin-top: 12px;"><strong>Operated by:</strong> Wang Ye (Individual Developer)</p>
+            <p style="font-size: 13px; color: rgba(255,255,255,0.6);">Bitstudio is the brand name under which we operate Space Master. All business operations and support are provided by the developer.</p>
 
             <div class="contact-box">
                 <h3>📮 Contact Us</h3>
@@ -483,7 +494,13 @@
             <h2>Version Information</h2>
             
             <p><strong>Current Version:</strong> Under Development</p>
-            <p><strong>Version Type:</strong> Alpha Testing</p>
+            <p><strong>Version Type:</strong> Alpha Testing (Pre-Release)</p>
+            <p><strong>Status:</strong> Development Phase - Not Yet Available for Public Use</p>
+
+            <div class="warning-box">
+                <strong>⚠️ Development Notice:</strong>
+                <p style="margin-top: 8px;">Space Master is currently in active development. The product is not yet available for download or purchase. We are working hard to deliver a high-quality, safe, and reliable disk management solution.</p>
+            </div>
 
             <h3>🚧 Features In Development:</h3>
             <ul>
@@ -564,6 +581,12 @@
             
             <p><strong>Q: Can I use it on multiple computers?</strong></p>
             <p>A: A single account can log in on multiple devices, but member features can only be used on one device at a time.</p>
+
+            <p><strong>Q: Is my payment information secure?</strong></p>
+            <p>A: Yes, absolutely. All payments are processed by Creem, a certified payment platform that acts as our merchant of record. Creem handles all payment processing, fraud prevention, and tax compliance. We never store your credit card information. Creem is PCI-DSS compliant and uses industry-standard encryption to protect your data.</p>
+
+            <p><strong>Q: What payment methods are accepted?</strong></p>
+            <p>A: We accept all major credit cards, debit cards, and various regional payment methods through Creem. Available payment methods may vary based on your location.</p>
 
             <div class="contact-box">
                 <h3>💬 Other Questions?</h3>
@@ -648,7 +671,12 @@
                     <li>AI safe deletion suggestions</li>
                     <li>Priority technical support</li>
                 </ul>
+                <p style="margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.7);">
+                    🔒 <strong>Secure Payments:</strong> All payments are securely processed by Creem as our merchant of record, ensuring safe transactions and automatic tax compliance worldwide.
+                </p>
             </div>
+
+            <p style="margin-top: 20px;"><strong>Product Type:</strong> Digital software subscription service</p>
 
             <h3>System Requirements</h3>
             <ul>
@@ -660,6 +688,105 @@
                 <h3>Download Now</h3>
                 <p>Click the "Download" button at the top to get the latest version</p>
                 <p style="margin-top: 20px;">📧 Business Inquiries: <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refund Policy Window -->
+    <div class="window" id="window-refund" style="top: 70px; left: 280px;">
+        <div class="window-header">
+            <div class="window-title"><div class="title-icon icon-refund">💰</div>Refund Policy</div>
+            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('refund')"></div></div>
+        </div>
+        <div class="window-content">
+            <h2>💰 Refund Policy</h2>
+            <p class="update-date">Last updated: January 2025</p>
+
+            <p>At Bitstudio, we want you to be completely satisfied with your Space Master subscription. This refund policy outlines how you can request a refund if needed.</p>
+
+            <div class="highlight-box">
+                <strong>Our Commitment:</strong> We believe in fair and transparent refund practices. You can cancel your subscription at any time and receive a prorated refund based on the unused portion of your subscription.
+            </div>
+
+            <h3>Refund Eligibility</h3>
+            <ul>
+                <li>You can cancel your subscription at any time</li>
+                <li>Refunds are calculated based on days used vs. total subscription days</li>
+                <li>You will receive <strong>80% of the remaining subscription value</strong></li>
+            </ul>
+
+            <h3>How Refunds Are Calculated</h3>
+            <div class="warning-box">
+                <p><strong>Refund Formula:</strong></p>
+                <p style="margin-top: 10px; font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px;">
+                    Refund Amount = (Remaining Days / Total Days) × Subscription Fee × 80%
+                </p>
+                <p style="margin-top: 12px;"><strong>Example:</strong></p>
+                <p>For a $5/month subscription, if you cancel after 10 days of use:</p>
+                <ul style="margin-top: 8px;">
+                    <li>Total subscription days: 30</li>
+                    <li>Days used: 10</li>
+                    <li>Remaining days: 20</li>
+                    <li>Calculation: (20/30) × $5 × 80% = <strong>$2.67 refund</strong></li>
+                </ul>
+            </div>
+
+            <h3>How to Request a Refund</h3>
+            <p><strong>Step 1:</strong> Send an email to our support team</p>
+            <ul>
+                <li>Email address: <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></li>
+                <li>Subject line: "Refund Request - [Your Username]"</li>
+            </ul>
+
+            <p style="margin-top: 16px;"><strong>Step 2:</strong> Include the following information</p>
+            <ul>
+                <li>Your account username or email</li>
+                <li>Reason for requesting a refund (optional, but helps us improve)</li>
+                <li>Any feedback about your experience with Space Master</li>
+            </ul>
+
+            <p style="margin-top: 16px;"><strong>Step 3:</strong> Wait for processing</p>
+            <ul>
+                <li>We will process your refund request within <strong>5 business days</strong></li>
+                <li>Refunds will be issued to your original payment method through Creem</li>
+                <li>You will receive an email confirmation once the refund is processed</li>
+            </ul>
+
+            <h3>Refund Restrictions</h3>
+            <p>Refunds are <strong>not available</strong> for:</p>
+            <ul>
+                <li>Accounts banned for violating our Terms of Service</li>
+                <li>Duplicate subscriptions that have already received a refund</li>
+                <li>Subscriptions obtained through unauthorized or fraudulent means</li>
+            </ul>
+
+            <h3>After Your Refund</h3>
+            <ul>
+                <li>Your member features will be deactivated immediately upon refund approval</li>
+                <li>You can continue using the free version of Space Master without any limitations</li>
+                <li>You are welcome to resubscribe at any time if you change your mind</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>💡 Before Requesting a Refund:</strong>
+                <p style="margin-top: 8px;">If you're experiencing issues with Space Master, please contact our support team first. We're here to help and may be able to resolve your concerns without needing a refund.</p>
+            </div>
+
+            <h3>Payment Processing</h3>
+            <p>All payments and refunds are processed by <strong>Creem</strong>, our merchant of record. Creem handles:</p>
+            <ul>
+                <li>Secure payment processing</li>
+                <li>Refund disbursements</li>
+                <li>Tax compliance and documentation</li>
+                <li>Fraud prevention</li>
+            </ul>
+            <p>For questions about payment processing, you can also refer to <a href="https://www.creem.io/terms" target="_blank">Creem's Terms of Service</a>.</p>
+
+            <div class="contact-box">
+                <h3>Questions About Refunds?</h3>
+                <p>If you have any questions about our refund policy or need assistance with a refund request:</p>
+                <p>📧 Email: <strong><a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></strong></p>
+                <p>⏱️ Response time: 1-3 business days</p>
             </div>
         </div>
     </div>
@@ -706,6 +833,10 @@
             <div class="menu-item" onclick="openWindow('product'); toggleStartMenu();">
                 <div class="icon-small icon-product">💻</div>
                 <span>Product</span>
+            </div>
+            <div class="menu-item" onclick="openWindow('refund'); toggleStartMenu();">
+                <div class="icon-small icon-refund">💰</div>
+                <span>Refund</span>
             </div>
         </div>
         <div class="menu-footer">
