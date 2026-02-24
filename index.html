@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ʊ 空間大師 - 桌面</title>
+    <title>Ʊ 空間大師</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
@@ -26,19 +26,27 @@
         .desktop-icon:hover .icon-img { transform: scale(1.1); box-shadow: 0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2); }
         .icon-download { background: linear-gradient(180deg, #5b9bf5 0%, #2563eb 100%); }
         .icon-history { background: linear-gradient(180deg, #9f8af7 0%, #7c3aed 100%); }
+        .icon-gift { background: linear-gradient(180deg, #fb923c 0%, #ea580c 100%); }
         .icon-privacy { background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%); }
         .icon-terms { background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%); }
         .icon-agreement { background: linear-gradient(180deg, #f472b6 0%, #db2777 100%); }
         .icon-version { background: linear-gradient(180deg, #818cf8 0%, #4f46e5 100%); }
+        .icon-chat { background: linear-gradient(180deg, #818cf8 0%, #4f46e5 100%); }
         .icon-demo { background: linear-gradient(180deg, #f97316 0%, #c2410c 100%); }
         .icon-promo { background: linear-gradient(180deg, #f87171 0%, #dc2626 100%); }
         .icon-support { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); }
+        .icon-business { background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); }
         .icon-product { background: linear-gradient(180deg, #2dd4bf 0%, #0d9488 100%); }
         .icon-refund { background: linear-gradient(180deg, #e879f9 0%, #a21caf 100%); }
         .icon-text { font-size: 12px; color: #ffffff; text-align: center; line-height: 1.3; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); word-break: break-all; }
         .taskbar { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; background: rgba(30, 30, 46, 0.85); backdrop-filter: blur(20px); border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; padding: 0 12px; z-index: 100; }
-        .start-btn { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; background: transparent; }
+        .start-btn { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; background: transparent; position: relative; }
         .start-btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .start-btn .logo-a, .start-btn .logo-b { position: absolute; width: 45px; height: 45px; transition: opacity 0.6s ease; }
+        .start-btn .logo-a { animation: logoSwapA 4s ease-in-out infinite; }
+        .start-btn .logo-b { animation: logoSwapB 4s ease-in-out infinite; }
+        @keyframes logoSwapA { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes logoSwapB { 0%, 45% { opacity: 0; } 50%, 95% { opacity: 1; } 100% { opacity: 0; } }
         .search-box { margin-left: 12px; width: 280px; height: 36px; background: rgba(255, 255, 255, 0.08); border-radius: 18px; display: flex; align-items: center; padding: 0 14px; gap: 10px; cursor: text; transition: all 0.2s ease; }
         .search-box:hover { background: rgba(255, 255, 255, 0.12); }
         .search-box svg { width: 16px; height: 16px; color: rgba(255, 255, 255, 0.6); }
@@ -118,13 +126,13 @@
             <div class="title-en">Ʊ Space Master</div>
             <div class="title-cn"><span style="font-family: 'Times New Roman', serif;">Ʊ</span> 空間大師</div>
         </div>
-        <div class="desktop-icon" data-window="download">
-            <div class="icon-img icon-download"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-            <span class="icon-text">下載</span>
+        <div class="desktop-icon" data-window="product">
+            <div class="icon-img icon-product"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <span class="icon-text">產品介紹</span>
         </div>
-        <div class="desktop-icon" data-window="history">
-            <div class="icon-img icon-history"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <span class="icon-text">歷史版本</span>
+        <div class="desktop-icon" data-window="promo">
+            <div class="icon-img icon-promo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <span class="icon-text">官方頻道</span>
         </div>
         <div class="desktop-icon" data-window="privacy">
             <div class="icon-img icon-privacy"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -135,28 +143,28 @@
             <span class="icon-text">服務條款</span>
         </div>
         <div class="desktop-icon" data-window="about">
-            <div class="icon-img icon-agreement"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="icon-img icon-agreement"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
             <span class="icon-text">關於我們</span>
         </div>
-        <div class="desktop-icon" data-window="version">
-            <div class="icon-img icon-version"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-            <span class="icon-text">版本資訊</span>
+        <div class="desktop-icon" data-window="download">
+            <div class="icon-img icon-download"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+            <span class="icon-text">下載</span>
         </div>
-        <div class="desktop-icon" data-window="promo">
-            <div class="icon-img icon-promo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-            <span class="icon-text">宣傳影片</span>
+        <div class="desktop-icon" data-window="gift">
+            <div class="icon-img icon-gift"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+            <span class="icon-text">新手禮包</span>
         </div>
-        <div class="desktop-icon" data-window="support">
-            <div class="icon-img icon-support"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-            <span class="icon-text">技術支援</span>
-        </div>
-        <div class="desktop-icon" data-window="product">
-            <div class="icon-img icon-product"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-            <span class="icon-text">產品介紹</span>
+        <div class="desktop-icon" data-window="chat">
+            <div class="icon-img icon-chat"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+            <span class="icon-text">線上客服</span>
         </div>
         <div class="desktop-icon" data-window="refund">
-            <div class="icon-img icon-refund"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="icon-img icon-refund"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div>
             <span class="icon-text">退款政策</span>
+        </div>
+        <div class="desktop-icon" data-window="business">
+            <div class="icon-img icon-business"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <span class="icon-text">商務合作</span>
         </div>
     </div>
 
@@ -168,12 +176,16 @@
             <div class="window-title"><div class="title-icon icon-download">📥</div>下載</div>
             <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('download')"></div></div>
         </div>
-        <div class="window-content" style="text-align: center; padding: 60px 40px;">
+        <div class="window-content" style="text-align: center; padding: 40px;">
             <div style="font-size: 64px; margin-bottom: 20px;">📦</div>
-            <h2>暫無可用版本</h2>
-            <p style="color: rgba(255,255,255,0.6); margin-top: 16px;">新版本正在開發中，敬請期待…</p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 12px;"><strong>系統需求：</strong>Windows 10/11（64位元）| 僅支援 GPT 磁碟分割</p>
-            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 30px;">聯繫我們：<a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
+            <h2>軟體下載</h2>
+            <div style="margin: 24px 0; padding: 20px; background: rgba(255,255,255,0.06); border-radius: 10px;">
+                <p style="font-size: 15px; margin-bottom: 12px;">🔧 <strong>Smart Uninstaller</strong></p>
+                <p style="color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 16px;">智慧卸載工具 | Windows 10/11（64位元）</p>
+                <a href="SmartUninstaller.exe" download style="display: inline-block; padding: 10px 28px; background: linear-gradient(180deg, #5b9bf5 0%, #2563eb 100%); color: white; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500;">⬇ 下載 SmartUninstaller.exe</a>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 8px;">空間大師新版本正在開發中，敬請期待…</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 20px;">聯繫我們：<a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
         </div>
     </div>
 
@@ -391,7 +403,7 @@
             <h3>10. 智慧財產權</h3>
             <ul>
                 <li>軟體介面設計、程式碼和商標受智慧財產權法保護</li>
-                <li>所有權利歸 Bitstudio 所有</li>
+                <li>所有權利歸 Eloong Leap 所有</li>
                 <li>未經授權，禁止複製、修改或散布</li>
             </ul>
 
@@ -429,7 +441,7 @@
             <div class="contact-box">
                 <h3>15. 聯繫方式</h3>
                 <p><strong>服務提供者：</strong>Wang Ye（獨立開發者）</p>
-                <p><strong>品牌名稱：</strong>Bitstudio / Space Master</p>
+                <p><strong>品牌名稱：</strong>Eloong Leap / Space Master</p>
                 <p>📧 電子郵件：<strong><a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></strong></p>
                 <p>我們將在 1-3 個工作日內回覆</p>
             </div>
@@ -445,7 +457,7 @@
         <div class="window-content">
             <h2>關於我們</h2>
             
-            <p><strong>Bitstudio</strong> 是一個專注於系統最佳化工具的獨立開發團隊，致力於提供簡單、高效且安全的磁碟管理解決方案。</p>
+            <p><strong>Eloong Leap</strong> 是一個專注於系統最佳化工具的獨立開發團隊，致力於提供簡單、高效且安全的磁碟管理解決方案。</p>
             
             <div class="highlight-box">
                 <strong>🎯 我們的使命</strong><br>
@@ -479,7 +491,7 @@
             <p>我們是一個小而專注的團隊。每一位成員都熱愛技術，追求極致的產品體驗。</p>
             
             <p style="margin-top: 12px;"><strong>營運者：</strong>Wang Ye（獨立開發者）</p>
-            <p style="font-size: 13px; color: rgba(255,255,255,0.6);">Bitstudio 是我們經營 Space Master 所使用的品牌名稱。所有業務營運和技術支援均由開發者提供。</p>
+            <p style="font-size: 13px; color: rgba(255,255,255,0.6);">Eloong Leap 是我們經營 Space Master 所使用的品牌名稱。所有業務營運和技術支援均由開發者提供。</p>
 
             <div class="contact-box">
                 <h3>📮 聯繫我們</h3>
@@ -490,46 +502,50 @@
         </div>
     </div>
 
-    <!-- 版本資訊視窗 -->
-    <div class="window" id="window-version" style="top: 110px; left: 260px;">
+    <!-- 線上客服視窗 -->
+    <div class="window" id="window-chat" style="top: 110px; left: 260px;">
         <div class="window-header">
-            <div class="window-title"><div class="title-icon icon-version">ℹ️</div>版本資訊</div>
-            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('version')"></div></div>
+            <div class="window-title"><div class="title-icon icon-chat">💬</div>線上客服</div>
+            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('chat')"></div></div>
         </div>
         <div class="window-content">
-            <h2>版本資訊</h2>
+            <h2>線上客服</h2>
             
-            <p><strong>目前版本：</strong>開發中</p>
-            <p><strong>版本類型：</strong>Alpha 測試（預覽版）</p>
-            <p><strong>狀態：</strong>開發階段 - 尚未開放公開使用</p>
-
-            <div class="warning-box">
-                <strong>⚠️ 開發通知：</strong>
-                <p style="margin-top: 8px;">空間大師目前正在積極開發中。該產品尚未提供下載或購買。我們正努力打造一款高品質、安全且可靠的磁碟管理解決方案。</p>
-            </div>
-
-            <h3>🚧 開發中的功能：</h3>
-            <ul>
-                <li>磁碟清理引擎</li>
-                <li>C 槽擴充功能（GPT 分割）</li>
-                <li>空間分析視覺化</li>
-                <li>AI 智慧辨識系統</li>
-                <li>帳戶與訂閱系統</li>
-            </ul>
-
             <div class="highlight-box">
-                <strong>📅 預計發布時間：</strong>2026 年第一季
+                <strong>📧 郵件支援</strong><br>
+                <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a><br>
+                <span style="font-size: 12px; color: rgba(255,255,255,0.6);">（1-3 個工作日內回覆）</span>
             </div>
 
-            <h3>🔔 想要獲得更新通知？</h3>
-            <p>發送郵件至 <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a>，主旨填寫「訂閱更新通知」</p>
+            <h3>📚 常見問題</h3>
+            
+            <p><strong>問：空間大師安全嗎？</strong></p>
+            <p>答：軟體已經過嚴格測試，但磁碟操作本身存在固有風險。請務必在操作前備份重要資料。</p>
+            
+            <p><strong>問：支援哪些 Windows 版本？</strong></p>
+            <p>答：Windows 10 和 Windows 11（64位元），僅支援 GPT 分割。大多數現代電腦使用 GPT 格式。</p>
+            
+            <p><strong>問：免費版和會員版有什麼區別？</strong></p>
+            <p>答：免費版可以無限次使用清理和擴充功能。會員版提供 AI 智慧辨識，降低誤刪風險，並提供更安全的刪除建議。</p>
+            
+            <p><strong>問：如何退款？</strong></p>
+            <p>答：您可以隨時取消訂閱，並按已使用天數獲得 80% 的剩餘費用退款。詳情請參閱服務條款第 7 條。</p>
+
+            <p><strong>問：我的付款資訊安全嗎？</strong></p>
+            <p>答：絕對安全。所有付款均由 Creem 處理，我們不會儲存您的信用卡資訊。</p>
+
+            <div class="contact-box">
+                <h3>💬 還有其他問題？</h3>
+                <p>給我們發送郵件，我們會盡快回覆！</p>
+                <p>📧 <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
+            </div>
         </div>
     </div>
 
-    <!-- 宣傳影片視窗 -->
+    <!-- 官方頻道視窗 -->
     <div class="window" id="window-promo" style="top: 80px; left: 240px; width: 500px;">
         <div class="window-header">
-            <div class="window-title"><div class="title-icon icon-promo">▶️</div>宣傳影片</div>
+            <div class="window-title"><div class="title-icon icon-promo">▶️</div>官方頻道</div>
             <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('promo')"></div></div>
         </div>
         <div class="window-content" style="text-align: center; padding: 40px;">
@@ -547,57 +563,29 @@
         </div>
     </div>
 
-    <!-- 技術支援視窗 -->
-    <div class="window" id="window-support" style="top: 100px; left: 350px;">
+    <!-- 商務合作視窗 -->
+    <div class="window" id="window-business" style="top: 100px; left: 350px;">
         <div class="window-header">
-            <div class="window-title"><div class="title-icon icon-support">💬</div>技術支援</div>
-            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('support')"></div></div>
+            <div class="window-title"><div class="title-icon icon-business">🤝</div>商務合作</div>
+            <div class="window-controls"><div class="window-btn btn-minimize"></div><div class="window-btn btn-maximize"></div><div class="window-btn btn-close" onclick="closeWindow('business')"></div></div>
         </div>
         <div class="window-content">
-            <h2>需要幫助？</h2>
+            <h2>商務合作</h2>
             
+            <p>Eloong Leap 歡迎各種形式的商務合作，共同打造更好的系統工具生態。</p>
+
+            <h3>🤝 合作方向</h3>
+            <ul>
+                <li><strong>OEM / 預裝合作</strong> — 電腦品牌商、組裝商預裝合作</li>
+                <li><strong>代理經銷</strong> — 區域代理、線上線下分銷</li>
+                <li><strong>技術合作</strong> — API 對接、功能整合</li>
+                <li><strong>媒體合作</strong> — 產品評測、內容推廣</li>
+            </ul>
+
             <div class="highlight-box">
-                <strong>📧 郵件支援</strong><br>
+                <strong>📧 商務聯繫</strong><br>
                 <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a><br>
-                <span style="font-size: 12px; color: rgba(255,255,255,0.6);">（1-3 個工作日內回覆）</span>
-            </div>
-
-            <h3>📚 常見問題</h3>
-            
-            <p><strong>問：空間大師安全嗎？</strong></p>
-            <p>答：軟體已經過嚴格測試，但磁碟操作本身存在固有風險。請務必在操作前備份重要資料。</p>
-            
-            <p><strong>問：支援哪些 Windows 版本？</strong></p>
-            <p>答：Windows 10 和 Windows 11（64位元），僅支援 GPT 分割。大多數現代電腦使用 GPT 格式。</p>
-            
-            <p><strong>問：我的電腦使用 MBR 分割，可以使用嗎？</strong></p>
-            <p>答：抱歉，我們目前不支援傳統 MBR 分割（主要是 2010 年以前的舊電腦）。您可以在磁碟管理中查看分割類型。</p>
-            
-            <p><strong>問：免費版和會員版有什麼區別？</strong></p>
-            <p>答：免費版可以無限次使用清理和擴充功能。會員版提供 AI 智慧辨識，降低誤刪風險，並提供更安全的刪除建議。</p>
-            
-            <p><strong>問：清理會刪除重要檔案嗎？</strong></p>
-            <p>答：軟體僅清理系統快取、暫存檔案等垃圾資料。執行前會顯示清理列表供您確認。會員版的 AI 功能可進一步降低誤刪風險。</p>
-            
-            <p><strong>問：C 槽擴充會導致資料遺失嗎？</strong></p>
-            <p>答：擴充過程使用安全的分割區調整演算法，但我們強烈建議先備份資料。</p>
-            
-            <p><strong>問：如何退款？</strong></p>
-            <p>答：您可以隨時取消訂閱，並按已使用天數獲得 80% 的剩餘費用退款。詳情請參閱服務條款第 7 條。</p>
-            
-            <p><strong>問：可以在多台電腦上使用嗎？</strong></p>
-            <p>答：單一帳戶可在多台裝置上登入，但會員功能同一時間只能在一台裝置上使用。</p>
-
-            <p><strong>問：我的付款資訊安全嗎？</strong></p>
-            <p>答：絕對安全。所有付款均由 Creem 處理，Creem 是經認證的付款平台，作為我們的授權銷售商。Creem 負責所有付款處理、詐欺防範和稅務合規。我們不會儲存您的信用卡資訊。Creem 符合 PCI-DSS 標準，使用業界標準加密來保護您的資料。</p>
-
-            <p><strong>問：接受哪些付款方式？</strong></p>
-            <p>答：我們透過 Creem 接受所有主流信用卡、金融卡和各種地區性付款方式。可用的付款方式可能因您所在地區而異。</p>
-
-            <div class="contact-box">
-                <h3>💬 還有其他問題？</h3>
-                <p>給我們發送郵件，我們會盡快回覆！</p>
-                <p>📧 <a href="mailto:uspacemaster@gmail.com">uspacemaster@gmail.com</a></p>
+                <span style="font-size: 12px; color: rgba(255,255,255,0.6);">請在郵件主旨標註「商務合作」</span>
             </div>
         </div>
     </div>
@@ -708,7 +696,7 @@
             <h2>💰 退款政策</h2>
             <p class="update-date">最後更新：2025 年 1 月</p>
 
-            <p>在 Bitstudio，我們希望您對空間大師的訂閱完全滿意。本退款政策說明了您在需要時如何申請退款。</p>
+            <p>在 Eloong Leap，我們希望您對空間大師的訂閱完全滿意。本退款政策說明了您在需要時如何申請退款。</p>
 
             <div class="highlight-box">
                 <strong>我們的承諾：</strong>我們相信公平透明的退款制度。您可以隨時取消訂閱，並根據未使用的部分獲得按比例退款。
@@ -824,17 +812,17 @@
                 <div class="icon-small icon-agreement">👥</div>
                 <span>關於我們</span>
             </div>
-            <div class="menu-item" onclick="openWindow('version'); toggleStartMenu();">
-                <div class="icon-small icon-version">ℹ️</div>
-                <span>版本資訊</span>
+            <div class="menu-item" onclick="openWindow('chat'); toggleStartMenu();">
+                <div class="icon-small icon-chat">💬</div>
+                <span>線上客服</span>
             </div>
             <div class="menu-item" onclick="openWindow('promo'); toggleStartMenu();">
                 <div class="icon-small icon-promo">▶️</div>
-                <span>宣傳影片</span>
+                <span>官方頻道</span>
             </div>
-            <div class="menu-item" onclick="openWindow('support'); toggleStartMenu();">
-                <div class="icon-small icon-support">💬</div>
-                <span>技術支援</span>
+            <div class="menu-item" onclick="openWindow('business'); toggleStartMenu();">
+                <div class="icon-small icon-business">🤝</div>
+                <span>商務合作</span>
             </div>
             <div class="menu-item" onclick="openWindow('product'); toggleStartMenu();">
                 <div class="icon-small icon-product">💻</div>
@@ -853,13 +841,14 @@
 
     <!-- 版權聲明 -->
     <div style="position: fixed; bottom: 60px; left: 0; right: 0; text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); pointer-events: none; z-index: 10;">
-        Copyright © 2025 Bitstudio. 保留所有權利。
+        Copyright © 2025 Eloong Leap. 保留所有權利。
     </div>
 
     <!-- 工作列 -->
     <div class="taskbar">
         <div class="start-btn" onclick="toggleStartMenu()">
-            <span style="font-size: 24px; color: #4cc9f0; font-weight: bold;">Ʊ</span>
+            <svg class="logo-a" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="lwrb"><rect x="16" y="16" width="112" height="224"/></clipPath></defs><text x="128" y="141" font-family="Segoe UI" font-weight="500" font-size="200" text-anchor="middle" dominant-baseline="middle" fill="black" transform="rotate(180 128 128)">Ω</text><text x="128" y="141" font-family="Segoe UI" font-weight="500" font-size="200" text-anchor="middle" dominant-baseline="middle" fill="white" transform="rotate(180 128 128)" clip-path="url(#lwrb)">Ω</text></svg>
+            <svg class="logo-b" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="lbrw"><rect x="128" y="16" width="112" height="224"/></clipPath></defs><text x="128" y="141" font-family="Segoe UI" font-weight="500" font-size="200" text-anchor="middle" dominant-baseline="middle" fill="black" transform="rotate(180 128 128)">Ω</text><text x="128" y="141" font-family="Segoe UI" font-weight="500" font-size="200" text-anchor="middle" dominant-baseline="middle" fill="white" transform="rotate(180 128 128)" clip-path="url(#lbrw)">Ω</text></svg>
         </div>
         <div class="search-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -994,7 +983,7 @@
             document.querySelector('.date').textContent = dateStr;
         }
         updateTime();
-        setInterval(updateTime, 60000);
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
